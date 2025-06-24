@@ -200,7 +200,14 @@ public class LoginForm extends javax.swing.JFrame {
         String inputUsername = tfUserIn.getText();
         String inputPassword = tfPassIn.getText();
         
-        String sql = "SELECT * FROM AccountsMain WHERE username = ? AND password = ?";
+        //String sql = "SELECT * FROM AccountsMain, WHERE username = ? AND password = ?";
+        String sql = "SELECT a.account_number, b.amount AS btc_amount, e.amount AS eth_amount, u.amount AS usdc_amount " +
+             "FROM AccountsMain a " +
+             "INNER JOIN btc b ON a.account_number = b.account_number " +
+             "INNER JOIN eth e ON a.account_number = e.account_number " +
+             "INNER JOIN usdc u ON a.account_number = u.account_number " +
+             "WHERE a.username = ? AND a.password = ?";
+
         
         try (Connection conn = getConnection(); PreparedStatement pst = conn.prepareStatement(sql)) {
             pst.setString(1, inputUsername);
@@ -214,7 +221,10 @@ public class LoginForm extends javax.swing.JFrame {
 
             // Optional: Pass account_number to next form
             String accNumber = rs.getString("account_number");
-            DashboardForm dash = new DashboardForm(accNumber);
+            String valBTC = rs.getString("btc_amount");
+            String valETH = rs.getString("eth_amount");
+            String valUSDC = rs.getString("usdc_amount");
+            DashboardForm dash = new DashboardForm(accNumber, valBTC, valETH, valUSDC);
             dash.setVisible(true);
             this.dispose(); // Close login form
             } else {

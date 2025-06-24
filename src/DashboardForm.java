@@ -14,9 +14,49 @@ public class DashboardForm extends javax.swing.JFrame {
     /**
      * Creates new form DashboardForm
      */
-    public DashboardForm(String accNumber) {
+    public DashboardForm(String accNumber, String valBTC,  String valETH, String valUSDC) {
         initComponents();
         lblDAccnum.setText(accNumber);
+        lblBTCval.setText("₿" + "\t" + valBTC);
+        lblETHval.setText("Ξ" + "\t" + valETH);
+        lblUSDCval.setText("$" + "\t" + valUSDC);
+        USDCeq.setText("$" + "\t" + valUSDC);
+        
+        //BTCeq.setText((valBTC.equals(ABORT)))* (105,476.90));
+        
+        String btcAmountStr = valBTC;
+        String ethAmountStr = valETH;
+        String usdAmountStr = valUSDC;
+ 
+        double BTC2USD = 105476.90; // jun 26 2025
+        double ETH2USD = 2429.90;
+        
+        try {
+            double btcAmount = Double.parseDouble(btcAmountStr);
+            double usdValuebtc = btcAmount * BTC2USD;
+            
+            double ethAmount = Double.parseDouble(ethAmountStr);
+            double usdValueeth = ethAmount * ETH2USD;
+
+            double usdcAmount = Double.parseDouble(usdAmountStr);
+            
+            double total = usdcAmount + usdValueeth + usdValuebtc;
+            
+            // Format if you want 2 decimal places:
+            String formattedUsdbtc = String.format("$%.2f", usdValuebtc);
+            String formattedUsdeth = String.format("$%.2f", usdValueeth);
+            String formattedUsdUsdc = String.format("$%.2f", total);
+
+            BTCeq.setText(formattedUsdbtc);
+            ETHeq.setText(formattedUsdeth);
+            lblTotal.setText(formattedUsdUsdc);
+        } catch (NumberFormatException e) {
+            BTCeq.setText("Invalid BTC amount");
+            e.printStackTrace(); // optional: log this for debugging
+        }
+        
+        
+
     }
 
 //    DashboardForm(String accNumber) {
@@ -34,26 +74,146 @@ public class DashboardForm extends javax.swing.JFrame {
     private void initComponents() {
 
         lblDAccnum = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        lblTotal = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        lblBTCval = new javax.swing.JLabel();
+        lblETHval = new javax.swing.JLabel();
+        lblUSDCval = new javax.swing.JLabel();
+        jLabel99 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        BTCeq = new javax.swing.JLabel();
+        ETHeq = new javax.swing.JLabel();
+        USDCeq = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         lblDAccnum.setText("jLabel1");
+
+        jButton1.setText("Buy Token");
+
+        jButton2.setText("Send Token");
+
+        jButton3.setText("Deposit Token");
+
+        jLabel1.setText("TOTAL TOKEN VALUE");
+
+        jLabel2.setText("Customer ID:");
+
+        lblTotal.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
+        lblTotal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTotal.setText("jLabel3");
+
+        jLabel4.setText("Bitcoin");
+
+        jLabel5.setText("Ehereum:");
+
+        jLabel6.setText("USD Coin:");
+
+        lblBTCval.setText("jLabel7");
+
+        lblETHval.setText("jLabel7");
+
+        lblUSDCval.setText("jLabel7");
+
+        jLabel99.setText("Amount");
+
+        jLabel7.setText("USD Value");
+
+        BTCeq.setText("jLabel8");
+
+        ETHeq.setText("jLabel9");
+
+        USDCeq.setText("jLabel10");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(172, 172, 172)
-                .addComponent(lblDAccnum)
-                .addContainerGap(407, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(242, 242, 242)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(150, 150, 150)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton3))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(56, 56, 56)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblDAccnum))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(36, 36, 36)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel99)
+                                    .addComponent(lblBTCval)
+                                    .addComponent(lblETHval)
+                                    .addComponent(lblUSDCval))
+                                .addGap(98, 98, 98)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel7)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(6, 6, 6)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(ETHeq)
+                                            .addComponent(BTCeq)
+                                            .addComponent(USDCeq))))))))
+                .addContainerGap(158, Short.MAX_VALUE))
+            .addComponent(lblTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(145, 145, 145)
-                .addComponent(lblDAccnum)
-                .addContainerGap(353, Short.MAX_VALUE))
+                .addGap(50, 50, 50)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblTotal)
+                .addGap(38, 38, 38)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel99)
+                    .addComponent(jLabel7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(lblBTCval)
+                    .addComponent(BTCeq))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(lblETHval)
+                    .addComponent(ETHeq))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(lblUSDCval)
+                    .addComponent(USDCeq))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 103, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2)
+                    .addComponent(jButton3))
+                .addGap(58, 58, 58)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblDAccnum)
+                    .addComponent(jLabel2))
+                .addGap(42, 42, 42))
         );
 
         pack();
@@ -82,11 +242,28 @@ public class DashboardForm extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new DashboardForm("").setVisible(true);
+            new DashboardForm("", "", "", "").setVisible(true);
                 });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel BTCeq;
+    private javax.swing.JLabel ETHeq;
+    private javax.swing.JLabel USDCeq;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel99;
+    private javax.swing.JLabel lblBTCval;
     private javax.swing.JLabel lblDAccnum;
+    private javax.swing.JLabel lblETHval;
+    private javax.swing.JLabel lblTotal;
+    private javax.swing.JLabel lblUSDCval;
     // End of variables declaration//GEN-END:variables
 }
