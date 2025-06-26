@@ -56,8 +56,8 @@ public class AdminDashboardForm extends javax.swing.JFrame {
     DefaultTableModel model = (DefaultTableModel) tableMain.getModel();
     model.setRowCount(0);
 
-    String sql = "SELECT *, b.amount AS btc_amount, " +
-                 "e.amount AS eth_amount, u.amount AS usdc_amount " +
+    String sql = "SELECT *, b.amount AS btc_amount, b.BTCaddress, " +
+                 "e.amount AS eth_amount, e.ETHaddress, u.amount AS usdc_amount, u.USDCaddress " +
                  "FROM AccountsMain a " +
                  "LEFT JOIN btc b ON a.account_number = b.account_number " +
                  "LEFT JOIN eth e ON a.account_number = e.account_number " +
@@ -76,8 +76,11 @@ public class AdminDashboardForm extends javax.swing.JFrame {
             String btc = rs.getString("btc_amount");
             String eth = rs.getString("eth_amount");
             String usdc = rs.getString("usdc_amount");
+            String btcadd = rs.getString("BTCaddress");
+            String ethadd = rs.getString("ETHaddress");
+            String usdcadd = rs.getString("USDCaddress");
 
-            model.addRow(new Object[]{accNum, user, fn, ln, mn, pa, btc, eth, usdc});
+            model.addRow(new Object[]{accNum, user, fn, ln, mn, pa, btc, eth, usdc, btcadd, ethadd, usdcadd});
         }
 
     } catch (SQLException ex) {
@@ -111,7 +114,7 @@ public class AdminDashboardForm extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         tfLName1 = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        tfCustID1 = new javax.swing.JTextField();
+        tfPHPamount = new javax.swing.JTextField();
         tfCustID2 = new javax.swing.JTextField();
         tfCustID3 = new javax.swing.JTextField();
         tfCustID4 = new javax.swing.JTextField();
@@ -129,11 +132,6 @@ public class AdminDashboardForm extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(51, 255, 51));
         setResizable(false);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowOpened(java.awt.event.WindowEvent evt) {
-                formWindowOpened(evt);
-            }
-        });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
@@ -142,23 +140,23 @@ public class AdminDashboardForm extends javax.swing.JFrame {
 
         tableMain.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Customer ID", "Username", "First name", "Last name", "Mobile Number", "PHP", "BTC", "ETH", "USDC"
+                "Customer ID", "Username", "First name", "Last name", "Mobile Number", "PHP", "BTC", "ETH", "USDC", "BTC address", "ETH address", "USDC address"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -197,6 +195,9 @@ public class AdminDashboardForm extends javax.swing.JFrame {
             tableMain.getColumnModel().getColumn(6).setResizable(false);
             tableMain.getColumnModel().getColumn(7).setResizable(false);
             tableMain.getColumnModel().getColumn(8).setResizable(false);
+            tableMain.getColumnModel().getColumn(9).setResizable(false);
+            tableMain.getColumnModel().getColumn(10).setResizable(false);
+            tableMain.getColumnModel().getColumn(11).setResizable(false);
         }
         tableMain.getAccessibleContext().setAccessibleName("");
 
@@ -309,11 +310,11 @@ public class AdminDashboardForm extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Mobile number:");
 
-        tfCustID1.setBackground(new java.awt.Color(255, 255, 255));
-        tfCustID1.setForeground(new java.awt.Color(0, 0, 0));
-        tfCustID1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        tfCustID1.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        tfCustID1.setEnabled(false);
+        tfPHPamount.setBackground(new java.awt.Color(255, 255, 255));
+        tfPHPamount.setForeground(new java.awt.Color(0, 0, 0));
+        tfPHPamount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        tfPHPamount.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        tfPHPamount.setEnabled(false);
 
         tfCustID2.setBackground(new java.awt.Color(255, 255, 255));
         tfCustID2.setForeground(new java.awt.Color(0, 0, 0));
@@ -413,7 +414,7 @@ public class AdminDashboardForm extends javax.swing.JFrame {
                             .addComponent(tfCustID5, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tfCustID1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tfPHPamount, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(tfCustID2, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(46, 46, 46)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -423,7 +424,7 @@ public class AdminDashboardForm extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(tfCustID6, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(tfCustID7, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap(141, Short.MAX_VALUE))))
+                        .addContainerGap(259, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -437,7 +438,7 @@ public class AdminDashboardForm extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(tfCustID, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1)
-                            .addComponent(tfCustID1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfPHPamount, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -488,15 +489,6 @@ public class AdminDashboardForm extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        // TODO add your handling code here:
-        String sql = "SELECT a.account_number, a.username, b.amount AS btc_amount, e.amount AS eth_amount, u.amount AS usdc_amount " +
-             "FROM AccountsMain a " +
-             "LEFT JOIN btc b ON a.account_number = b.account_number " +
-             "LEFT JOIN eth e ON a.account_number = e.account_number " +
-             "LEFT JOIN usdc u ON a.account_number = u.account_number";
-    }//GEN-LAST:event_formWindowOpened
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
 
@@ -602,7 +594,6 @@ public class AdminDashboardForm extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tableMain;
     private javax.swing.JTextField tfCustID;
-    private javax.swing.JTextField tfCustID1;
     private javax.swing.JTextField tfCustID2;
     private javax.swing.JTextField tfCustID3;
     private javax.swing.JTextField tfCustID4;
@@ -612,6 +603,7 @@ public class AdminDashboardForm extends javax.swing.JFrame {
     private javax.swing.JTextField tfFName;
     private javax.swing.JTextField tfLName;
     private javax.swing.JTextField tfLName1;
+    private javax.swing.JTextField tfPHPamount;
     private javax.swing.JTextField tfUserN;
     // End of variables declaration//GEN-END:variables
 }
