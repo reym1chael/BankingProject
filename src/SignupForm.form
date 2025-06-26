@@ -142,10 +142,7 @@
                       </Group>
                   </Group>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="label1" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="label1" min="-2" max="-2" attributes="0"/>
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                           <Component id="btnLogin" pref="51" max="32767" attributes="0"/>

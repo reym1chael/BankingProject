@@ -34,12 +34,12 @@ public class SignupForm2 extends javax.swing.JFrame {
     
     public Connection getConnection() {
     try {
-        Class.forName("com.mysql.jdbc.Driver");
-        return DriverManager.getConnection("jdbc:mysql://localhost:3306/jcappdb", "root", "");
-    } catch (Exception e) {
+        String url = "jdbc:sqlite:Data/jcappdb.sqlite"; // use your actual SQLite filename/path
+        return DriverManager.getConnection(url);
+    } catch (SQLException e) {
         JOptionPane.showMessageDialog(null, "Database connection failed: " + e.getMessage());
         return null;
-        }
+    }
     }
     
     public void generateWallets() {
@@ -67,21 +67,21 @@ public class SignupForm2 extends javax.swing.JFrame {
             PreparedStatement pstBTC = conn.prepareStatement("INSERT INTO BTC (account_number, BTCaddress, amount) VALUES (?, ?, ?)");
             pstBTC.setString(1, accNumber);
             pstBTC.setString(2, btcAddress);
-            pstBTC.setBigDecimal(3, new BigDecimal("0.0"));
+            pstBTC.setBigDecimal(3, new BigDecimal("0.0000"));
             pstBTC.executeUpdate();
 
   
             PreparedStatement pstETH = conn.prepareStatement("INSERT INTO ETH (account_number, ETHaddress, amount) VALUES (?, ?, ?)");
             pstETH.setString(1, accNumber);
             pstETH.setString(2, ethAddress);
-            pstETH.setBigDecimal(3, new BigDecimal("0.0"));
+            pstETH.setBigDecimal(3, new BigDecimal("0.0000"));
             pstETH.executeUpdate();
 
             
             PreparedStatement pstUSDC = conn.prepareStatement("INSERT INTO USDC (account_number, USDCaddress, amount) VALUES (?, ?, ?)");
             pstUSDC.setString(1, accNumber);
             pstUSDC.setString(2, usdcAddress);
-            pstUSDC.setBigDecimal(3, new BigDecimal("0.0"));
+            pstUSDC.setBigDecimal(3, new BigDecimal("0.0000"));
             pstUSDC.executeUpdate();
 
             JOptionPane.showMessageDialog(null, "Wallets created and stored successfully!");

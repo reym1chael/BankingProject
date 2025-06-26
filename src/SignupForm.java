@@ -34,12 +34,12 @@ public class SignupForm extends javax.swing.JFrame {
     
     public Connection getConnection() {
     try {
-        Class.forName("com.mysql.jdbc.Driver");
-        return DriverManager.getConnection("jdbc:mysql://localhost:3306/jcappdb", "root", ""); // use your password if set
-    } catch (Exception e) {
+        String url = "jdbc:sqlite:Data/jcappdb.sqlite"; // use your actual SQLite filename/path
+        return DriverManager.getConnection(url);
+    } catch (SQLException e) {
         JOptionPane.showMessageDialog(null, "Database connection failed: " + e.getMessage());
         return null;
-        }
+    }
     }
 
 
@@ -309,21 +309,21 @@ public class SignupForm extends javax.swing.JFrame {
 
                 pst.executeUpdate();
                 JOptionPane.showMessageDialog(null, "User saved successfully!");
+                SignupForm2 form2 = new SignupForm2     (
+                tfAcc.getText(),     // account_number
+                tfUser.getText(),    // username
+                tfFN.getText(),      // firstname
+                tfLN.getText(),      // lastname
+                tfMobile.getText()   // mobile number
+                                                        );
+                form2.setVisible(true);
                 this.dispose();
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Error inserting user: " + ex.getMessage());
             }
         }
         }
-        SignupForm2 form2 = new SignupForm2(
-        tfAcc.getText(),     // account_number
-        tfUser.getText(),    // username
-        tfFN.getText(),      // firstname
-        tfLN.getText(),      // lastname
-        tfMobile.getText()   // mobile number
-        );
-        form2.setVisible(true);
-        this.dispose(); // or setVisible(false);
+        
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void label1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label1MouseClicked

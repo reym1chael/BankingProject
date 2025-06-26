@@ -28,11 +28,9 @@ public class LoginForm extends javax.swing.JFrame {
     
     public Connection getConnection() {
     try {
-        // No need for Class.forName with modern SQLite JDBC, but you can include it
-        //Class.forName("org.sqlite.JDBC");
         String url = "jdbc:sqlite:Data/jcappdb.sqlite"; // use your actual SQLite filename/path
         return DriverManager.getConnection(url);
-    } catch (Exception e) {
+    } catch (SQLException e) {
         JOptionPane.showMessageDialog(null, "Database connection failed: " + e.getMessage());
         return null;
     }
