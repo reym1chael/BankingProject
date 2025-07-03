@@ -112,25 +112,25 @@ public class AdminDashboardForm extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         tfLName = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        tfLName1 = new javax.swing.JTextField();
+        tfMobile = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         tfPHPamount = new javax.swing.JTextField();
-        tfCustID2 = new javax.swing.JTextField();
-        tfCustID3 = new javax.swing.JTextField();
-        tfCustID4 = new javax.swing.JTextField();
-        tfCustID5 = new javax.swing.JTextField();
+        tfBTCamount = new javax.swing.JTextField();
+        tfBTCadd = new javax.swing.JTextField();
+        tfETHamount = new javax.swing.JTextField();
+        tfETHadd = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        tfCustID6 = new javax.swing.JTextField();
+        tfUSDCamount = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        tfCustID7 = new javax.swing.JTextField();
+        tfUSDCadd = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(51, 255, 51));
+        setBackground(new java.awt.Color(255, 255, 255));
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -300,10 +300,10 @@ public class AdminDashboardForm extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Last name:");
 
-        tfLName1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        tfLName1.addActionListener(new java.awt.event.ActionListener() {
+        tfMobile.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        tfMobile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfLName1ActionPerformed(evt);
+                tfMobileActionPerformed(evt);
             }
         });
 
@@ -314,31 +314,31 @@ public class AdminDashboardForm extends javax.swing.JFrame {
         tfPHPamount.setForeground(new java.awt.Color(0, 0, 0));
         tfPHPamount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         tfPHPamount.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        tfPHPamount.setEnabled(false);
+        tfPHPamount.setFocusable(false);
 
-        tfCustID2.setBackground(new java.awt.Color(255, 255, 255));
-        tfCustID2.setForeground(new java.awt.Color(0, 0, 0));
-        tfCustID2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        tfCustID2.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        tfCustID2.setEnabled(false);
+        tfBTCamount.setBackground(new java.awt.Color(255, 255, 255));
+        tfBTCamount.setForeground(new java.awt.Color(0, 0, 0));
+        tfBTCamount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        tfBTCamount.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        tfBTCamount.setFocusable(false);
 
-        tfCustID3.setBackground(new java.awt.Color(255, 255, 255));
-        tfCustID3.setForeground(new java.awt.Color(0, 0, 0));
-        tfCustID3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        tfCustID3.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        tfCustID3.setEnabled(false);
+        tfBTCadd.setBackground(new java.awt.Color(255, 255, 255));
+        tfBTCadd.setForeground(new java.awt.Color(0, 0, 0));
+        tfBTCadd.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        tfBTCadd.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        tfBTCadd.setFocusable(false);
 
-        tfCustID4.setBackground(new java.awt.Color(255, 255, 255));
-        tfCustID4.setForeground(new java.awt.Color(0, 0, 0));
-        tfCustID4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        tfCustID4.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        tfCustID4.setEnabled(false);
+        tfETHamount.setBackground(new java.awt.Color(255, 255, 255));
+        tfETHamount.setForeground(new java.awt.Color(0, 0, 0));
+        tfETHamount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        tfETHamount.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        tfETHamount.setFocusable(false);
 
-        tfCustID5.setBackground(new java.awt.Color(255, 255, 255));
-        tfCustID5.setForeground(new java.awt.Color(0, 0, 0));
-        tfCustID5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        tfCustID5.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        tfCustID5.setEnabled(false);
+        tfETHadd.setBackground(new java.awt.Color(255, 255, 255));
+        tfETHadd.setForeground(new java.awt.Color(0, 0, 0));
+        tfETHadd.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        tfETHadd.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        tfETHadd.setFocusable(false);
 
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("PHP Amount:");
@@ -358,20 +358,20 @@ public class AdminDashboardForm extends javax.swing.JFrame {
         jLabel11.setForeground(new java.awt.Color(0, 0, 0));
         jLabel11.setText("USDC Amount:");
 
-        tfCustID6.setBackground(new java.awt.Color(255, 255, 255));
-        tfCustID6.setForeground(new java.awt.Color(0, 0, 0));
-        tfCustID6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        tfCustID6.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        tfCustID6.setEnabled(false);
+        tfUSDCamount.setBackground(new java.awt.Color(255, 255, 255));
+        tfUSDCamount.setForeground(new java.awt.Color(0, 0, 0));
+        tfUSDCamount.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        tfUSDCamount.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        tfUSDCamount.setFocusable(false);
 
         jLabel12.setForeground(new java.awt.Color(0, 0, 0));
         jLabel12.setText("USDC Address:");
 
-        tfCustID7.setBackground(new java.awt.Color(255, 255, 255));
-        tfCustID7.setForeground(new java.awt.Color(0, 0, 0));
-        tfCustID7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        tfCustID7.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        tfCustID7.setEnabled(false);
+        tfUSDCadd.setBackground(new java.awt.Color(255, 255, 255));
+        tfUSDCadd.setForeground(new java.awt.Color(0, 0, 0));
+        tfUSDCadd.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        tfUSDCadd.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        tfUSDCadd.setFocusable(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -399,7 +399,7 @@ public class AdminDashboardForm extends javax.swing.JFrame {
                             .addComponent(tfUserN, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(tfFName, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(tfLName, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfLName1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(tfMobile, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(56, 56, 56)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6)
@@ -409,28 +409,28 @@ public class AdminDashboardForm extends javax.swing.JFrame {
                             .addComponent(jLabel10))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfCustID3, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfCustID4, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfCustID5, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfBTCadd, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfETHamount, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfETHadd, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(tfPHPamount, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(tfCustID2, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(tfBTCamount, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(46, 46, 46)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel11)
                                     .addComponent(jLabel12))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tfCustID6, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(tfCustID7, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap(259, Short.MAX_VALUE))))
+                                    .addComponent(tfUSDCamount, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(tfUSDCadd, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addContainerGap(247, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(83, Short.MAX_VALUE)
+                .addContainerGap(71, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -444,33 +444,33 @@ public class AdminDashboardForm extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(tfUserN, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2)
-                            .addComponent(tfCustID2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfBTCamount, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(tfCustID6, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfUSDCamount, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel11))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(tfCustID7, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfUSDCadd, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel12))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfFName, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(tfCustID3, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfBTCadd, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfLName, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
-                    .addComponent(tfCustID4, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfETHamount, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfLName1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfMobile, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
-                    .addComponent(tfCustID5, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfETHadd, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10))
                 .addGap(79, 79, 79))
         );
@@ -479,11 +479,17 @@ public class AdminDashboardForm extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -518,29 +524,69 @@ public class AdminDashboardForm extends javax.swing.JFrame {
 
     private void tableMainMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMainMousePressed
         // TODO add your handling code here:
+        tfCustID.setText("");
+        tfUserN.setText("");
+        tfFName.setText("");
+        tfLName.setText("");
+        tfMobile.setText("");
+        tfPHPamount.setText("");
+        tfBTCamount.setText("");
+        tfETHamount.setText("");
+        tfUSDCamount.setText("");
+        tfBTCadd.setText("");
+        tfETHadd.setText("");
+        tfUSDCadd.setText("");
         int selectedRow = tableMain.getSelectedRow();
         if (selectedRow != -1) {
             tfCustID.setText(tableMain.getValueAt(selectedRow, 0).toString());
             tfUserN.setText(tableMain.getValueAt(selectedRow, 1).toString());
             tfFName.setText(tableMain.getValueAt(selectedRow, 2).toString());
             tfLName.setText(tableMain.getValueAt(selectedRow, 3).toString());
+            tfMobile.setText(tableMain.getValueAt(selectedRow, 4).toString());
+            tfPHPamount.setText(tableMain.getValueAt(selectedRow, 5).toString());
+            tfBTCamount.setText(tableMain.getValueAt(selectedRow, 6).toString());
+            tfETHamount.setText(tableMain.getValueAt(selectedRow, 7).toString());
+            tfUSDCamount.setText(tableMain.getValueAt(selectedRow, 8).toString());
+            tfBTCadd.setText(tableMain.getValueAt(selectedRow, 9).toString());
+            tfETHadd.setText(tableMain.getValueAt(selectedRow, 10).toString());
+            tfUSDCadd.setText(tableMain.getValueAt(selectedRow, 11).toString());
         }
     }//GEN-LAST:event_tableMainMousePressed
 
     private void tableMainMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableMainMouseDragged
         // TODO add your handling code here:
+        tfCustID.setText("");
+        tfUserN.setText("");
+        tfFName.setText("");
+        tfLName.setText("");
+        tfMobile.setText("");
+        tfPHPamount.setText("");
+        tfBTCamount.setText("");
+        tfETHamount.setText("");
+        tfUSDCamount.setText("");
+        tfBTCadd.setText("");
+        tfETHadd.setText("");
+        tfUSDCadd.setText("");
         int selectedRow = tableMain.getSelectedRow();
         if (selectedRow != -1) {
             tfCustID.setText(tableMain.getValueAt(selectedRow, 0).toString());
             tfUserN.setText(tableMain.getValueAt(selectedRow, 1).toString());
             tfFName.setText(tableMain.getValueAt(selectedRow, 2).toString());
             tfLName.setText(tableMain.getValueAt(selectedRow, 3).toString());
+            tfMobile.setText(tableMain.getValueAt(selectedRow, 4).toString());
+            tfPHPamount.setText(tableMain.getValueAt(selectedRow, 5).toString());
+            tfBTCamount.setText(tableMain.getValueAt(selectedRow, 6).toString());
+            tfETHamount.setText(tableMain.getValueAt(selectedRow, 7).toString());
+            tfUSDCamount.setText(tableMain.getValueAt(selectedRow, 8).toString());
+            tfBTCadd.setText(tableMain.getValueAt(selectedRow, 9).toString());
+            tfETHadd.setText(tableMain.getValueAt(selectedRow, 10).toString());
+            tfUSDCadd.setText(tableMain.getValueAt(selectedRow, 11).toString());
         }
     }//GEN-LAST:event_tableMainMouseDragged
 
-    private void tfLName1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfLName1ActionPerformed
+    private void tfMobileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfMobileActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_tfLName1ActionPerformed
+    }//GEN-LAST:event_tfMobileActionPerformed
 
     /**
      * @param args the command line arguments
@@ -593,17 +639,17 @@ public class AdminDashboardForm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tableMain;
+    private javax.swing.JTextField tfBTCadd;
+    private javax.swing.JTextField tfBTCamount;
     private javax.swing.JTextField tfCustID;
-    private javax.swing.JTextField tfCustID2;
-    private javax.swing.JTextField tfCustID3;
-    private javax.swing.JTextField tfCustID4;
-    private javax.swing.JTextField tfCustID5;
-    private javax.swing.JTextField tfCustID6;
-    private javax.swing.JTextField tfCustID7;
+    private javax.swing.JTextField tfETHadd;
+    private javax.swing.JTextField tfETHamount;
     private javax.swing.JTextField tfFName;
     private javax.swing.JTextField tfLName;
-    private javax.swing.JTextField tfLName1;
+    private javax.swing.JTextField tfMobile;
     private javax.swing.JTextField tfPHPamount;
+    private javax.swing.JTextField tfUSDCadd;
+    private javax.swing.JTextField tfUSDCamount;
     private javax.swing.JTextField tfUserN;
     // End of variables declaration//GEN-END:variables
 }
