@@ -296,7 +296,7 @@ public class SignupForm extends javax.swing.JFrame {
         } else {
         Connection conn = getConnection();
         if (conn != null) {
-            String sql = "INSERT INTO AccountsMain (username, password, firstname, lastname, mobile_number, account_number) VALUES (?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO AccountsMain (username, password, firstname, lastname, mobile_number, account_number, peso) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
             try (PreparedStatement pst = conn.prepareStatement(sql)) {
                 pst.setString(1, tfUser.getText());
@@ -305,7 +305,7 @@ public class SignupForm extends javax.swing.JFrame {
                 pst.setString(4, tfLN.getText());
                 pst.setString(5, tfMobile.getText());
                 pst.setString(6, tfAcc.getText());
-                //pst.setBigDecimal(6, new BigDecimal(txtPeso.getText())); // or parseDouble
+                pst.setDouble(7, 0.00); // or parseDouble
 
                 pst.executeUpdate();
                 JOptionPane.showMessageDialog(null, "User saved successfully!");

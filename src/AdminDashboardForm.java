@@ -3,7 +3,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
@@ -53,40 +57,53 @@ public class AdminDashboardForm extends javax.swing.JFrame {
     }
     
     private void loadAccountsTable() {
-    DefaultTableModel model = (DefaultTableModel) tableMain.getModel();
-    model.setRowCount(0);
+        
+        DefaultTableModel model = (DefaultTableModel) tableMain.getModel();
+        model.setRowCount(0);
 
-    String sql = "SELECT *, b.amount AS btc_amount, b.BTCaddress, " +
+        String sql = "SELECT *, b.amount AS btc_amount, b.BTCaddress, " +
                  "e.amount AS eth_amount, e.ETHaddress, u.amount AS usdc_amount, u.USDCaddress " +
                  "FROM AccountsMain a " +
                  "LEFT JOIN btc b ON a.account_number = b.account_number " +
                  "LEFT JOIN eth e ON a.account_number = e.account_number " +
                  "LEFT JOIN usdc u ON a.account_number = u.account_number";
 
-    try (Connection conn = getConnection(); PreparedStatement pst = conn.prepareStatement(sql);
-         ResultSet rs = pst.executeQuery()) {
+        try (Connection conn = getConnection(); PreparedStatement pst = conn.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery()) {
 
-        while (rs.next()) {
-            String accNum = rs.getString("account_number");
-            String user = rs.getString("username");
-            String fn = rs.getString("firstname");
-            String ln = rs.getString("lastname");
-            String mn = rs.getString("mobile_number");
-            String pa = rs.getString("peso");
-            String btc = rs.getString("btc_amount");
-            String eth = rs.getString("eth_amount");
-            String usdc = rs.getString("usdc_amount");
-            String btcadd = rs.getString("BTCaddress");
-            String ethadd = rs.getString("ETHaddress");
-            String usdcadd = rs.getString("USDCaddress");
+            while (rs.next()) {
+                String accNum = rs.getString("account_number");
+                String user = rs.getString("username");
+                String fn = rs.getString("firstname");
+                String ln = rs.getString("lastname");
+                String mn = rs.getString("mobile_number");
+                String pa = rs.getString("peso");
+                String btc = rs.getString("btc_amount");
+                String eth = rs.getString("eth_amount");
+                String usdc = rs.getString("usdc_amount");
+                String btcadd = rs.getString("BTCaddress");
+                String ethadd = rs.getString("ETHaddress");
+                String usdcadd = rs.getString("USDCaddress");
 
-            model.addRow(new Object[]{accNum, user, fn, ln, mn, pa, btc, eth, usdc, btcadd, ethadd, usdcadd});
+                model.addRow(new Object[]{accNum, user, fn, ln, mn, pa, btc, eth, usdc, btcadd, ethadd, usdcadd});
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error loading accounts: " + ex.getMessage());
         }
-
-    } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(this, "Error loading accounts: " + ex.getMessage());
+        tfCustID.setText("");
+        tfUserN.setText("");
+        tfFName.setText("");
+        tfLName.setText("");
+        tfMobile.setText("");
+        tfPHPamount.setText("");
+        tfBTCamount.setText("");
+        tfETHamount.setText("");
+        tfUSDCamount.setText("");
+        tfBTCadd.setText("");
+        tfETHadd.setText("");
+        tfUSDCadd.setText("");
     }
-}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -104,6 +121,8 @@ public class AdminDashboardForm extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         btnDelete = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jTextField1 = new javax.swing.JTextField();
         tfCustID = new javax.swing.JTextField();
         tfUserN = new javax.swing.JTextField();
         tfFName = new javax.swing.JTextField();
@@ -138,6 +157,8 @@ public class AdminDashboardForm extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
+        tableMain.setAutoCreateRowSorter(true);
+        tableMain.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         tableMain.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null, null, null, null},
@@ -164,12 +185,12 @@ public class AdminDashboardForm extends javax.swing.JFrame {
             }
         });
         tableMain.setFocusable(false);
+        tableMain.setGridColor(new java.awt.Color(0, 0, 0));
         tableMain.setRowHeight(25);
         tableMain.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tableMain.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tableMain.setShowGrid(false);
         tableMain.setShowHorizontalLines(true);
-        tableMain.getTableHeader().setResizingAllowed(false);
         tableMain.getTableHeader().setReorderingAllowed(false);
         tableMain.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
@@ -215,10 +236,10 @@ public class AdminDashboardForm extends javax.swing.JFrame {
             .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 343, Short.MAX_VALUE)
         );
 
-        jPanel2.setBackground(new java.awt.Color(0, 0, 51));
+        jPanel2.setBackground(new java.awt.Color(0, 64, 0));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
 
-        btnDelete.setBackground(new java.awt.Color(255, 255, 255));
+        btnDelete.setBackground(new java.awt.Color(0, 192, 0));
         btnDelete.setFont(new java.awt.Font("Segoe UI Variable", 1, 14)); // NOI18N
         btnDelete.setForeground(new java.awt.Color(255, 0, 0));
         btnDelete.setText("Delete Selected");
@@ -229,7 +250,7 @@ public class AdminDashboardForm extends javax.swing.JFrame {
             }
         });
 
-        btnUpdate.setBackground(new java.awt.Color(255, 255, 255));
+        btnUpdate.setBackground(new java.awt.Color(0, 192, 0));
         btnUpdate.setFont(new java.awt.Font("Segoe UI Variable", 1, 14)); // NOI18N
         btnUpdate.setForeground(new java.awt.Color(0, 0, 0));
         btnUpdate.setText("Update Selected");
@@ -240,21 +261,37 @@ public class AdminDashboardForm extends javax.swing.JFrame {
             }
         });
 
+        jComboBox1.setBackground(new java.awt.Color(255, 255, 255));
+        jComboBox1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jComboBox1.setForeground(new java.awt.Color(0, 0, 0));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "by-customer ID", "by-username", "by-mobile number", "by-last name" }));
+
+        jTextField1.setBackground(new java.awt.Color(255, 255, 255));
+        jTextField1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jTextField1.setForeground(new java.awt.Color(0, 0, 0));
+        jTextField1.setText("search here");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
+                    .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
+                    .addComponent(jComboBox1, 0, 0, Short.MAX_VALUE)
+                    .addComponent(jTextField1))
                 .addContainerGap(31, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(153, 153, 153)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -498,11 +535,107 @@ public class AdminDashboardForm extends javax.swing.JFrame {
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
 
+        List<JTextField> invalidFields = new ArrayList<>();
+
+        if (tfUserN.getText().trim().isEmpty()) invalidFields.add(tfUserN);
+        if (tfFName.getText().trim().isEmpty()) invalidFields.add(tfFName);
+        if (tfLName.getText().trim().isEmpty()) invalidFields.add(tfLName);
+        if (tfMobile.getText().trim().isEmpty()) invalidFields.add(tfMobile);
+
+        if (!invalidFields.isEmpty()) {
+            for (JTextField field : invalidFields) {
+            Color original = field.getBackground();
+            field.setBackground(new Color(255, 255, 150)); // subtle glow
+            new Timer(4000, e -> field.setBackground(original)).start();
+        }
+        JOptionPane.showMessageDialog(null, "Please fill in all required fields before updating.");
+        return;
+        }
         
+        int selectedRow = tableMain.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(null, "Please select a row to update.");
+            return;
+        }
+        
+        int confirm = JOptionPane.showConfirmDialog(
+            null,
+            "Are you sure you want to apply these changes?",
+            "Confirm Update",
+            JOptionPane.YES_NO_OPTION
+        );
+        
+        if (confirm != JOptionPane.YES_OPTION) {
+            loadAccountsTable();
+        }else{
+            String accNumber = tfCustID.getText();
+            String newUsername = tfUserN.getText();
+            String newFirstname = tfFName.getText();
+            String newLastname = tfLName.getText();
+            String newMobile = tfMobile.getText();
+
+        try (Connection conn = getConnection()) {
+            String sql = "UPDATE AccountsMain SET username = ?, firstname = ?, lastname = ?, mobile_number = ? WHERE account_number = ?";
+            PreparedStatement pst = conn.prepareStatement(sql);
+
+            pst.setString(1, newUsername);
+            pst.setString(2, newFirstname);
+            pst.setString(3, newLastname);
+            pst.setString(4, newMobile);
+            pst.setString(5, accNumber);
+
+            pst.executeUpdate();
+            JOptionPane.showMessageDialog(null, "User updated successfully!");
+            loadAccountsTable(); // refresh the JTable after update
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Update failed: " + ex.getMessage());
+        }   
+        }
+    
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
+        String sql = "";
+        int selectedRow = tableMain.getSelectedRow();
+        if (selectedRow != -1) {
+            String accNumber = tableMain.getValueAt(selectedRow, 0).toString(); // assuming account_number is in column 0
+
+            int confirm = JOptionPane.showConfirmDialog(null, 
+            "Are you sure you want to delete user with Account #" + accNumber + "?",
+            "Confirm Deletion", JOptionPane.YES_NO_OPTION);
+
+            if (confirm == JOptionPane.YES_OPTION) {
+                try (Connection conn = getConnection()) {
+                // First delete child table entries
+                PreparedStatement pstBTC = conn.prepareStatement("DELETE FROM BTC WHERE account_number = ?");
+                pstBTC.setString(1, accNumber);
+                pstBTC.executeUpdate();
+
+                PreparedStatement pstETH = conn.prepareStatement("DELETE FROM ETH WHERE account_number = ?");
+                pstETH.setString(1, accNumber);
+                pstETH.executeUpdate();
+
+                PreparedStatement pstUSDC = conn.prepareStatement("DELETE FROM USDC WHERE account_number = ?");
+                pstUSDC.setString(1, accNumber);
+                pstUSDC.executeUpdate();
+
+                // Then delete main account
+                PreparedStatement pstMain = conn.prepareStatement("DELETE FROM AccountsMain WHERE account_number = ?");
+                pstMain.setString(1, accNumber);
+                pstMain.executeUpdate();
+
+                JOptionPane.showMessageDialog(null, "User deleted successfully.");
+                // Optional: refresh table data here
+                loadAccountsTable();
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, "Deletion failed: " + ex.getMessage());
+                    }
+            }else {
+            loadAccountsTable();}
+        } else {
+            JOptionPane.showMessageDialog(null, "Please select a row to delete.");
+            }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void tfFNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfFNameActionPerformed
@@ -622,6 +755,7 @@ public class AdminDashboardForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnUpdate;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -638,6 +772,7 @@ public class AdminDashboardForm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JTable tableMain;
     private javax.swing.JTextField tfBTCadd;
     private javax.swing.JTextField tfBTCamount;
