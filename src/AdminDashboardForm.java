@@ -29,8 +29,10 @@ public class AdminDashboardForm extends javax.swing.JFrame {
      */
     public AdminDashboardForm() {
         initComponents();
-        //setBackground(new Color(0, 0, 0, 0));
+        
         loadAccountsTable();
+        
+        //setBackground(new Color(0, 0, 0, 0));
         //tableMain.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
         //tableMain.getTableHeader().setOpaque(false);
         //tableMain.getTableHeader().setBackground(new Color(32, 136, 203));
@@ -55,7 +57,7 @@ public class AdminDashboardForm extends javax.swing.JFrame {
         return null;
     }
     }
-    
+    int uni = 0;
     private void loadAccountsTable() {
         
         DefaultTableModel model = (DefaultTableModel) tableMain.getModel();
@@ -87,6 +89,7 @@ public class AdminDashboardForm extends javax.swing.JFrame {
 
                 model.addRow(new Object[]{accNum, user, fn, ln, mn, pa, btc, eth, usdc, btcadd, ethadd, usdcadd});
             }
+            uni = model.getRowCount();
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Error loading accounts: " + ex.getMessage());
@@ -104,6 +107,115 @@ public class AdminDashboardForm extends javax.swing.JFrame {
         tfETHadd.setText("");
         tfUSDCadd.setText("");
     }
+    
+        private void performSearch() {
+        
+        String selectedFilter = filterBox.getSelectedItem().toString();
+        String searchText = tfSearch.getText().trim();
+
+        DefaultTableModel model = (DefaultTableModel) tableMain.getModel();
+        model.setRowCount(0); // Clear existing rows
+
+        String columnToSearch;
+
+        switch (selectedFilter) {
+            
+            case "by-customer ID":
+                columnToSearch = "account_number";
+            break;
+                
+            case "by-username":
+                columnToSearch = "username";
+            break;
+            
+            case "by-mobile number":
+                columnToSearch = "mobile_number";
+            break;
+            
+            case "by-last name":
+                columnToSearch = "lastname";
+            break;
+            
+            default:
+                
+        return;
+        }
+        
+
+        String sql = "SELECT *, b.amount AS btc_amount, b.BTCaddress, " +
+                    "e.amount AS eth_amount, e.ETHaddress, u.amount AS usdc_amount, u.USDCaddress " +
+                    "FROM AccountsMain a " +
+                    "LEFT JOIN btc b ON a.account_number = b.account_number " +
+                    "LEFT JOIN eth e ON a.account_number = e.account_number " +
+                    "LEFT JOIN usdc u ON a.account_number = u.account_number " +
+                    "WHERE a." + columnToSearch + " LIKE ?";
+
+        try (Connection conn = getConnection(); PreparedStatement pst = conn.prepareStatement(sql)) {
+            pst.setString(1, searchText + "%");
+            ResultSet rs = pst.executeQuery();
+            
+            int count = 0;
+
+            while (rs.next()) {
+                
+                count++;
+                
+                String accNum = rs.getString("account_number");
+                String user = rs.getString("username");
+                String fn = rs.getString("firstname");
+                String ln = rs.getString("lastname");
+                String mn = rs.getString("mobile_number");
+                String pa = rs.getString("peso");
+                String btc = rs.getString("btc_amount");
+                String eth = rs.getString("eth_amount");
+                String usdc = rs.getString("usdc_amount");
+                String btcadd = rs.getString("BTCaddress");
+                String ethadd = rs.getString("ETHaddress");
+                String usdcadd = rs.getString("USDCaddress");
+                
+                model.addRow(new Object[]{accNum, user, fn, ln, mn, pa, btc, eth, usdc, btcadd, ethadd, usdcadd});
+                
+                
+
+            }
+            
+            lblCount.setText(count+"");
+            
+            if (count == 0){
+                
+                lblCount.setText("No result(s) found.");
+               
+                Color original = lblCount.getForeground();
+                Font currentFont = lblCount.getFont();
+                lblCount.setForeground(new Color(255, 255, 150));
+                lblCount.setFont(currentFont.deriveFont(Font.BOLD));
+                new Timer(1000, e -> {
+                    lblCount.setForeground(original);
+                    lblCount.setFont(currentFont);
+                }).start();
+                }
+            else if (count == uni){
+                lblCount.setText("");
+                }
+            else{
+                lblCount.setText(count + " result(s) found.");
+                Color original = lblCount.getForeground();
+                Font currentFont = lblCount.getFont();
+                lblCount.setForeground(new Color(255, 255, 150));
+                lblCount.setFont(currentFont.deriveFont(Font.BOLD));
+                new Timer(1000, e -> {
+                    lblCount.setForeground(original);
+                    lblCount.setFont(currentFont);
+                }).start();
+                }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Search error: " + ex.getMessage());
+            }
+        
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -121,8 +233,9 @@ public class AdminDashboardForm extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         btnDelete = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jTextField1 = new javax.swing.JTextField();
+        filterBox = new javax.swing.JComboBox<>();
+        tfSearch = new javax.swing.JTextField();
+        lblCount = new javax.swing.JLabel();
         tfCustID = new javax.swing.JTextField();
         tfUserN = new javax.swing.JTextField();
         tfFName = new javax.swing.JTextField();
@@ -205,6 +318,11 @@ public class AdminDashboardForm extends javax.swing.JFrame {
                 tableMainMousePressed(evt);
             }
         });
+        tableMain.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                tableMainComponentResized(evt);
+            }
+        });
         jScrollPane2.setViewportView(tableMain);
         if (tableMain.getColumnModel().getColumnCount() > 0) {
             tableMain.getColumnModel().getColumn(0).setResizable(false);
@@ -261,15 +379,45 @@ public class AdminDashboardForm extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setBackground(new java.awt.Color(255, 255, 255));
-        jComboBox1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jComboBox1.setForeground(new java.awt.Color(0, 0, 0));
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "by-customer ID", "by-username", "by-mobile number", "by-last name" }));
+        filterBox.setBackground(new java.awt.Color(255, 255, 255));
+        filterBox.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        filterBox.setForeground(new java.awt.Color(0, 0, 0));
+        filterBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "by-customer ID", "by-username", "by-mobile number", "by-last name" }));
+        filterBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                filterBoxItemStateChanged(evt);
+            }
+        });
 
-        jTextField1.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(0, 0, 0));
-        jTextField1.setText("search here");
+        tfSearch.setBackground(new java.awt.Color(255, 255, 255));
+        tfSearch.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        tfSearch.setForeground(new java.awt.Color(102, 102, 102));
+        tfSearch.setText("Search...");
+        tfSearch.setToolTipText("");
+        tfSearch.setAutoscrolls(false);
+        tfSearch.setOpaque(true);
+        tfSearch.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                tfSearchFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfSearchFocusLost(evt);
+            }
+        });
+        tfSearch.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+                tfSearchInputMethodTextChanged(evt);
+            }
+        });
+        tfSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tfSearchKeyReleased(evt);
+            }
+        });
+
+        lblCount.setForeground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -277,20 +425,24 @@ public class AdminDashboardForm extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
-                    .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
-                    .addComponent(jComboBox1, 0, 0, Short.MAX_VALUE)
-                    .addComponent(jTextField1))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblCount)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(btnUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
+                        .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
+                        .addComponent(filterBox, 0, 0, Short.MAX_VALUE)
+                        .addComponent(tfSearch)))
                 .addContainerGap(31, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(153, 153, 153)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(filterBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tfSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblCount)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -721,6 +873,38 @@ public class AdminDashboardForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfMobileActionPerformed
 
+    private void tfSearchInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_tfSearchInputMethodTextChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfSearchInputMethodTextChanged
+
+    private void tfSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfSearchKeyReleased
+        // TODO add your handling code here:
+        performSearch();
+
+    }//GEN-LAST:event_tfSearchKeyReleased
+
+    private void tfSearchFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfSearchFocusGained
+        // TODO add your handling code here:
+        tfSearch.setText("");
+    }//GEN-LAST:event_tfSearchFocusGained
+
+    private void tfSearchFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfSearchFocusLost
+        // TODO add your handling code here:
+        tfSearch.setText("Search...");
+    }//GEN-LAST:event_tfSearchFocusLost
+
+    private void filterBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_filterBoxItemStateChanged
+        // TODO add your handling code here:
+        loadAccountsTable();
+    }//GEN-LAST:event_filterBoxItemStateChanged
+
+    private void tableMainComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_tableMainComponentResized
+        // TODO add your handling code here:
+//        DefaultTableModel model = (DefaultTableModel) tableMain.getModel();
+//        lblCount.setText(model.getRowCount() + "");
+    }//GEN-LAST:event_tableMainComponentResized
+
+    
     /**
      * @param args the command line arguments
      */
@@ -755,7 +939,7 @@ public class AdminDashboardForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnUpdate;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> filterBox;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -772,7 +956,7 @@ public class AdminDashboardForm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel lblCount;
     private javax.swing.JTable tableMain;
     private javax.swing.JTextField tfBTCadd;
     private javax.swing.JTextField tfBTCamount;
@@ -783,6 +967,7 @@ public class AdminDashboardForm extends javax.swing.JFrame {
     private javax.swing.JTextField tfLName;
     private javax.swing.JTextField tfMobile;
     private javax.swing.JTextField tfPHPamount;
+    private javax.swing.JTextField tfSearch;
     private javax.swing.JTextField tfUSDCadd;
     private javax.swing.JTextField tfUSDCamount;
     private javax.swing.JTextField tfUserN;
